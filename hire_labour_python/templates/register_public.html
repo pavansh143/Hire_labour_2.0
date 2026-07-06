@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="card auth-card" style="max-width: 550px !important;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div
+                style="width: 70px; height: 70px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+            </div>
+            <h1 style="margin: 0; font-size: 2rem; font-weight: 700;">Public Sign Up</h1>
+            <p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.95rem;">Join as a service seeker today</p>
+        </div>
+
+        <form method="POST">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label>UNIQUE USERNAME</label>
+                    <input type="text" name="username" class="form-control" placeholder="Choose ID" required>
+                </div>
+                <div class="form-group">
+                    <label>FULL DISPLAY NAME</label>
+                    <input type="text" name="full_name" class="form-control" placeholder="Your Name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>EMAIL ADDRESS</label>
+                <input type="email" name="email" class="form-control" placeholder="email@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>PHONE CONTACT</label>
+                <input type="text" name="phone" class="form-control" placeholder="+91 XXX XXX XXXX" required>
+            </div>
+            <div class="form-group">
+                <label>SECURE PASSWORD</label>
+                <input type="password" name="password" class="form-control" placeholder="Create password" required>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; padding: 1rem; margin-top: 1rem; border-radius: 12px; font-size: 1.1rem;">
+                Create Public Account
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.95rem;">
+            Already have an account? <a href="{{ url_for('login') }}"
+                style="color: var(--secondary-color); text-decoration: none; font-weight: 700;">Log In here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as Worker | Hire Labour AI</title>
+    <meta name="description" content="Register as a verified worker on Hire Labour AI. Our Gemini Vision AI validates your identity and profile in under 30 seconds.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<a href="landing.html" class="back-link">← Back to Home</a>
+
+<div class="page-header">
+    <div class="page-logo">
+        <div class="logo-icon">⚡</div>
+        <span>Hire<span class="logo-accent">Labour</span> <span class="logo-ai">AI</span></span>
+    </div>
+</div>
+
+<!-- Step Progress -->
+<div class="progress-steps" id="progressSteps">
+    <div class="prog-step active" id="ps1">
+        <div class="prog-circle">1</div>
+        <div class="prog-label">Identity</div>
+    </div>
+    <div class="prog-step" id="ps2">
+        <div class="prog-circle">2</div>
+        <div class="prog-label">Documents</div>
+    </div>
+    <div class="prog-step" id="ps3">
+        <div class="prog-circle">3</div>
+        <div class="prog-label">Profile</div>
+    </div>
+    <div class="prog-step" id="ps4">
+        <div class="prog-circle">✓</div>
+        <div class="prog-label">AI Result</div>
+    </div>
+</div>
+
+<div class="glass-card animate-fade">
+    <h1>Worker Registration</h1>
+    <p class="subtitle">Secure AI-powered identity verification — takes under 60 seconds</p>
+
+    <form id="registrationForm">
+
+        <!-- ── STEP 1: Phone + Name ──────────────────────── -->
+        <div class="step active" id="step1">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" id="fullNameInput" required placeholder="e.g. Rajesh Kumar">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <div style="display:flex;gap:10px;">
+                    <input type="text" name="phone" id="phoneInput" required placeholder="10-digit mobile number" style="flex:1;">
+                    <button type="button" class="btn-primary" style="width:auto;padding:13px 20px;" onclick="sendOTP()" id="sendOtpBtn">Send OTP</button>
+                </div>
+            </div>
+            <div class="form-group" id="otpGroup" style="display:none;">
+                <label>Enter OTP</label>
+                <input type="text" id="otpInput" placeholder="Enter the 6-digit code" maxlength="6">
+                <button type="button" class="btn-primary" style="margin-top:10px;" onclick="verifyOTP()" id="verifyOtpBtn">Verify OTP</button>
+            </div>
+            <button type="button" class="btn-primary" id="nextBtn1" style="display:none;margin-top:8px;" onclick="nextStep(2)">Next: Upload Documents →</button>
+        </div>
+
+        <!-- ── STEP 2: ID + Selfie ──────────────────────── -->
+        <div class="step" id="step2">
+            <div class="form-group">
+                <label>Aadhaar Number</label>
+                <input type="text" name="aadhaar_number" placeholder="1234 5678 9012" maxlength="14">
+            </div>
+            <div class="form-group">
+                <label>Upload Aadhaar / ID Card Photo</label>
+                <input type="file" name="id_card" accept="image/*" id="idCardInput">
+            </div>
+            <div class="form-group">
+                <label>Upload Live Selfie 📸</label>
+                <input type="file" name="selfie" accept="image/*" id="selfieInput" required>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:6px;">Make sure your face is clearly visible, well-lit, and you're holding nothing in front of it.</p>
+            </div>
+            <div class="btn-row">
+                <button type="button" class="btn-secondary" onclick="nextStep(1)">← Back</button>
+                <button type="button" class="btn-primary" onclick="nextStep(3)">Next: Your Profile →</button>
+            </div>
+        </div>
+
+        <!-- ── STEP 3: Skills + Bio ──────────────────────── -->
+        <div class="step" id="step3">
+            <div class="form-group">
+                <label>Skills (comma-separated)</label>
+                <input type="text" name="skills" id="skillsInput" placeholder="e.g. Plumbing, Welding, Carpentry">
+            </div>
+            <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="number" name="experience" id="experienceInput" placeholder="e.g. 5" min="0" max="50">
+            </div>
+            <div class="form-group">
+                <label>Short Bio</label>
+                <textarea name="bio" id="bioInput" rows="4" placeholder="Describe your experience, past work, and what makes you reliable..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="City, State (e.g. Mumbai, Maharashtra)">
+            </div>
+            <div class="btn-row">
+                <button type="button" class="btn-secondary" onclick="nextStep(2)">← Back</button>
+                <button type="submit" class="btn-primary" id="submitBtn">🤖 Register & Verify with AI</button>
+            </div>
+        </div>
+
+    </form>
+
+    <!-- ── AI RESULT PANEL ──────────────────────────────── -->
+    <div class="ai-result-panel" id="aiResultPanel">
+
+        <!-- Loading state -->
+        <div class="ai-loading" id="aiLoading">
+            <div class="ai-spinner"></div>
+            <div class="ai-loading-text">AI Verification In Progress</div>
+            <div class="ai-loading-sub">Gemini Vision is analyzing your registration...</div>
+            <div class="ai-loading-steps">
+                <div class="ai-ls active" id="als1">⚡ Uploading and processing selfie...</div>
+                <div class="ai-ls" id="als2">👁️ Running liveness detection...</div>
+                <div class="ai-ls" id="als3">🧠 Analyzing profile data...</div>
+                <div class="ai-ls" id="als4">🛡️ Anti-spoofing check...</div>
+                <div class="ai-ls" id="als5">📊 Calculating trust score...</div>
+            </div>
+        </div>
+
+        <!-- Result state -->
+        <div class="ai-result-content" id="aiResultContent">
+
+            <div class="result-verdict" id="resultVerdict">
+                <div class="verdict-emoji" id="verdictEmoji">✅</div>
+                <div class="verdict-action" id="verdictAction">ALLOW_REGISTRATION</div>
+                <div class="verdict-desc" id="verdictDesc">Your identity and profile have been approved by our AI engine.</div>
+            </div>
+
+            <div class="result-grid">
+                <div class="result-box">
+                    <div class="result-box-label">Face Verified</div>
+                    <div class="result-box-val" id="resFaceVerified">—</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-box-label">Liveness</div>
+                    <div class="result-box-val" id="resLiveness">—</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-box-label">Face Confidence</div>
+                    <div class="result-box-val blue" id="resFaceScore">—</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-box-label">Profile Quality</div>
+                    <div class="result-box-val blue" id="resProfileScore">—</div>
+                </div>
+            </div>
+
+            <div class="result-notes" id="resAuthNotes">
+                <div class="result-notes-title">📸 Face Analysis Notes</div>
+                <div class="result-notes-text" id="resAuthNotesText">—</div>
+            </div>
+            <div class="result-notes" id="resValNotes">
+                <div class="result-notes-title">📝 Profile Validation Notes</div>
+                <div class="result-notes-text" id="resValNotesText">—</div>
+            </div>
+
+            <div id="resultActions" style="margin-top:16px;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="js/register.js"></script>
+</body>
+</html>

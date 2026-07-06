@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <div class="card" style="display: flex; flex-direction: column; height: 75vh;">
+        <div
+            style="padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border); margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div
+                    style="width: 45px; height: 45px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-weight: 700;">
+                    {{ target.full_name[0] }}
+                </div>
+                <div>
+                    <h3 style="margin: 0;">{{ target.full_name }}</h3>
+                    <small style="color: #94a3b8;">{{ target_role | capitalize }}</small>
+                </div>
+            </div>
+            <a href="{{ url_for('messages') }}"
+                style="color: var(--secondary-color); text-decoration: none; font-size: 0.9rem;">&larr; Back to
+                Inbox</a>
+        </div>
+
+        <div id="chat-box" style="flex: 1; overflow-y: auto; padding-right: 0.5rem; margin-bottom: 1rem;">
+            {% for msg in messages %}
+            <div
+                style="margin-bottom: 1.5rem; display: flex; flex-direction: column; align-items: {{ 'flex-end' if msg.sender_type == session.get('user_role') else 'flex-start' }};">
+                <div
+                    style="max-width: 70%; padding: 0.8rem 1.2rem; border-radius: 15px; font-size: 0.95rem; 
+                         background: {{ 'var(--secondary-color)' if msg.sender_type == session.get('user_role') else 'rgba(255,255,255,0.05)' }};
+                         color: {{ 'var(--primary-color)' if msg.sender_type == session.get('user_role') else 'white' }};
+                         border-bottom-right-radius: {{ '2px' if msg.sender_type == session.get('user_role') else '15px' }};
+                         border-bottom-left-radius: {{ '2px' if msg.sender_type != session.get('user_role') else '15px' }};">
+                    {{ msg.content }}
+                </div>
+                <small style="color: #64748b; margin-top: 0.3rem; font-size: 0.75rem;">{{
+                    msg.timestamp.strftime('%H:%M') }}</small>
+            </div>
+            {% endfor %}
+            {% if not messages %}
+            <div style="text-align: center; color: #64748b; margin-top: 5rem;">
+                <p>No messages yet. Start the conversation!</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <form action="{{ url_for('send_message') }}" method="POST" style="display: flex; gap: 1rem;">
+            {% if target_role == 'labour' %}
+            <input type="hidden" name="labour_id" value="{{ target.labour_id }}">
+            {% else %}
+            <input type="hidden" name="public_id" value="{{ target.public_id }}">
+            {% endif %}
+            <input type="text" name="content" class="form-control" style="flex: 1;"
+                placeholder="Type your message here..." required autocomplete="off">
+            <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2rem;">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+{% endblock %}

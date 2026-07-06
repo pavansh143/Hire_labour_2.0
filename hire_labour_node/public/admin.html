@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Hire Labour AI</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--glass-border); }
+        th { color: var(--text-muted); font-size: 0.9rem; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .action-btn { padding: 6px 12px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.8rem; }
+        .btn-ban { background: var(--danger); color: white; }
+        .btn-approve { background: var(--success); color: white; }
+    </style>
+</head>
+<body>
+    <div class="glass-card animate-fade" style="max-width: 1000px;">
+        <h1>Admin Dashboard</h1>
+        <p class="subtitle">Monitor and Manage Labour Verification</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Trust Score</th>
+                    <th>Status</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="labourTable">
+                <!-- Rows will be injected here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function loadAdminData() {
+            const res = await fetch('/api/admin/labourers');
+            const labourers = await res.json();
+            
+            const table = document.getElementById('labourTable');
+            table.innerHTML = labourers.map(l => `
+                <tr>
+                    <td>
+                        <div style="font-weight: 600;">${l.full_name}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">${l.skills}</div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 800;">${l.trust_score}</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-${l.status.toLowerCase()}">${l.status}</span>
+                    </td>
+                    <td>${l.phone}</td>
+                    <td>
+                        <button class="action-btn btn-approve" onclick="updateStatus(${l.id}, 'Verified', false)">Approve</button>
+                        <button class="action-btn btn-ban" onclick="updateStatus(${l.id}, '${l.status}', true)">Ban</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateStatus(id, status, is_banned) {
+            await fetch('/api/admin/update-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status, is_banned })
+            });
+            loadAdminData();
+        }
+
+        loadAdminData();
+    </script>
+</body>
+</html>

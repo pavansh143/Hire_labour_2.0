@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2>Manage Public Users</h2>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline" style="color: white; border-color: white;">Back
+        to Dashboard</a>
+</div>
+
+<div class="card" style="padding: 0; overflow: hidden;">
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead style="background: rgba(255,255,255,0.05);">
+                <tr>
+                    <th style="padding: 1.2rem; text-align: left;">Name</th>
+                    <th style="padding: 1.2rem; text-align: left;">Email</th>
+                    <th style="padding: 1.2rem; text-align: left;">Phone</th>
+                    <th style="padding: 1.2rem; text-align: left;">Registered</th>
+                    <th style="padding: 1.2rem; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in publics %}
+                <tr style="border-top: 1px solid var(--glass-border);">
+                    <td style="padding: 1rem;">{{ user.full_name }}</td>
+                    <td style="padding: 1rem;">{{ user.email }}</td>
+                    <td style="padding: 1rem;">{{ user.phone }}</td>
+                    <td style="padding: 1rem;">{{ user.registration_date.strftime('%Y-%m-%d') }}</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <a href="{{ url_for('delete_user', type='public', id=user.public_id) }}" class="btn"
+                            style="background: #ef4444; color: white; padding: 0.4rem 0.8rem;"
+                            onclick="return confirm('Permanently delete this user?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

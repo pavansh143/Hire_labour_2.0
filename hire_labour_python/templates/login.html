@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="card auth-card">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div
+                style="width: 70px; height: 70px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+            </div>
+            <h1 style="margin: 0; font-size: 2rem; font-weight: 700;">{{ t['login'] }}</h1>
+            <p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.95rem;">Access your professional dashboard</p>
+        </div>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>{{ t['login'] }} IDENTIFIER</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label>SECURITY CREDENTIALS</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label>SYSTEM ACCESS ROLE</label>
+                <select name="role" class="form-control">
+                    <option value="public">👤 Public User</option>
+                    <option value="labour">🛠️ Labour / Professional</option>
+                    <option value="admin">🔑 Administrator</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; padding: 1rem; margin-top: 1.5rem; border-radius: 12px; font-size: 1.1rem;">
+                Sign In to Dashboard
+            </button>
+        </form>
+
+        <div
+            style="text-align: center; margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem;">New to Hire Labour?</p>
+            <div style="display: flex; gap: 2rem; justify-content: center;">
+                <a href="{{ url_for('register_public') }}"
+                    style="color: var(--secondary-color); text-decoration: none; font-weight: 700; font-size: 0.95rem;">Register
+                    as User</a>
+                <a href="{{ url_for('register_labour') }}"
+                    style="color: var(--accent-color); text-decoration: none; font-weight: 700; font-size: 0.95rem;">Join
+                    as Professional</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

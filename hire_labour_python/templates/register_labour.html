@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page" style="padding: 4rem 0;">
+    <div class="card auth-card" style="max-width: 650px !important;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div
+                style="width: 70px; height: 70px; background: var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+            </div>
+            <h1 style="margin: 0; font-size: 2rem; font-weight: 700;">Professional Registration</h1>
+            <p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.95rem;">Register as a skilled professional and
+                start
+                earning</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="form-group">
+                    <label>UNIQUE USERNAME</label>
+                    <input type="text" name="username" class="form-control" placeholder="ID (e.g. john_p)" required>
+                </div>
+                <div class="form-group">
+                    <label>LEGAL FULL NAME</label>
+                    <input type="text" name="full_name" class="form-control" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" name="email" class="form-control" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>CONTACT NUMBER</label>
+                    <input type="text" name="phone" class="form-control" placeholder="Mobile number" required>
+                </div>
+                <div class="form-group">
+                    <label>SERVICE CATEGORY</label>
+                    <input type="text" name="service_offered" class="form-control"
+                        placeholder="e.g. Plumbing, Electrician" required>
+                </div>
+                <div class="form-group">
+                    <label>SECURE PASSWORD</label>
+                    <input type="password" name="password" class="form-control" placeholder="Create password" required>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>LIVE SELFIE CAPTURE</label>
+                    <div id="camera-container" style="background: #1e293b; border-radius: 12px; padding: 10px; text-align: center;">
+                        <video id="webcam" autoplay playsinline style="width: 100%; max-width: 400px; border-radius: 8px; transform: scaleX(-1);"></video>
+                        <canvas id="photo-canvas" style="display: none;"></canvas>
+                        <div style="margin-top: 10px;">
+                            <button type="button" id="capture-btn" class="btn btn-primary" style="width: auto; padding: 0.5rem 1rem;">📸 Capture Selfie</button>
+                            <button type="button" id="retake-btn" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; display: none;">🔄 Retake</button>
+                        </div>
+                        <input type="hidden" name="selfie_base64" id="selfie_base64">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>OR UPLOAD ID CARD</label>
+                    <input type="file" name="id_card" class="form-control" accept="image/*" required>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 0.5rem;">
+                <label>WORK / OFFICE ADDRESS</label>
+                <textarea name="address" class="form-control" rows="3"
+                    placeholder="Provide your business location details..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; padding: 1rem; margin-top: 1rem; border-radius: 12px; font-size: 1.1rem;">
+                Complete Professional Setup
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.95rem;">
+            Already registered? <a href="{{ url_for('login') }}"
+                style="color: var(--secondary-color); text-decoration: none; font-weight: 700;">Login here</a>
+        </p>
+    </div>
+</div>
+<script>
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('photo-canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    const selfieInput = document.getElementById('selfie_base64');
+    async function initCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) { console.error(err); }
+    }
+    captureBtn.addEventListener('click', () => {
+        canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        selfieInput.value = canvas.toDataURL('image/jpeg');
+        video.style.display = 'none'; canvas.style.display = 'inline-block';
+        captureBtn.style.display = 'none'; retakeBtn.style.display = 'inline-block';
+    });
+    retakeBtn.addEventListener('click', () => {
+        video.style.display = 'inline-block'; canvas.style.display = 'none';
+        selfieInput.value = ''; captureBtn.style.display = 'inline-block'; retakeBtn.style.display = 'none';
+    });
+    initCamera();
+</script>
+{% endblock %}

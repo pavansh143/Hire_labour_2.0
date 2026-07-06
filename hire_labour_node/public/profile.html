@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Hire Labour AI</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-card animate-fade">
+        <div id="profileContent" style="display: none;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <img id="profileImg" src="" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary);">
+                <h1 id="labourName" style="margin-top: 15px;"></h1>
+                <div id="statusBadge" class="badge"></div>
+            </div>
+
+            <div class="form-group">
+                <label>AI Trust Score</label>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span id="trustScoreText" style="font-weight: 800; font-size: 1.5rem;">0</span>
+                    <span style="color: var(--text-muted);">/ 100</span>
+                </div>
+                <div class="trust-meter">
+                    <div id="trustFill" class="trust-fill"></div>
+                </div>
+            </div>
+
+            <div class="form-group" style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px;">
+                <label>Details</label>
+                <p><strong>Skills:</strong> <span id="labourSkills"></span></p>
+                <p><strong>Location:</strong> <span id="labourLocation"></span></p>
+                <p><strong>Bio:</strong> <span id="labourBio"></span></p>
+            </div>
+
+            <button class="btn-primary" onclick="window.location.href='index.html'">Register New</button>
+        </div>
+        <div id="loading" style="text-align: center;">
+            <p>Loading profile...</p>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        async function loadProfile() {
+            try {
+                const res = await fetch(`/api/labour/profile/${id}`);
+                const data = await res.json();
+                
+                if (data.id) {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('profileContent').style.display = 'block';
+                    
+                    document.getElementById('labourName').innerText = data.full_name;
+                    document.getElementById('labourSkills').innerText = data.skills;
+                    document.getElementById('labourLocation').innerText = data.location;
+                    document.getElementById('labourBio').innerText = data.bio;
+                    document.getElementById('trustScoreText').innerText = data.trust_score;
+                    
+                    const fill = document.getElementById('trustFill');
+                    fill.style.width = data.trust_score + '%';
+                    
+                    const badge = document.getElementById('statusBadge');
+                    badge.innerText = data.status;
+                    badge.className = `badge badge-${data.status.toLowerCase()}`;
+                    
+                    if (data.status === 'Verified') fill.style.background = 'var(--success)';
+                    else if (data.status === 'Suspicious') fill.style.background = 'var(--warning)';
+                    else fill.style.background = 'var(--danger)';
+
+                    document.getElementById('profileImg').src = data.selfie_image ? '/' + data.selfie_image : 'https://via.placeholder.com/150';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        loadProfile();
+    </script>
+</body>
+</html>

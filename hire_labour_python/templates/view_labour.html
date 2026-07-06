@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+    <div>
+        <div class="card" style="margin-bottom: 2rem;">
+            <div style="text-align: center;">
+                {% if labour.profile_image %}
+                <img src="{{ url_for('uploaded_file', filename=labour.profile_image) }}" class="profile-img"
+                    style="width: 120px; height: 120px; border-width: 4px;">
+                {% else %}
+                <img src="{{ url_for('static', filename='img/labour_placeholder.png') }}" class="profile-img"
+                    style="width: 120px; height: 120px; border-width: 4px;">
+                {% endif %}
+                 <h2 style="margin-top: 1rem;">{{ labour.full_name }}</h2>
+                 <p style="color: var(--secondary-color); font-weight: 600;">{{ labour.service_offered }}</p>
+                 
+                 {% if labour.status == 'Verified' %}
+                 <div style="background: rgba(34, 197, 94, 0.1); color: #4ade80; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; border: 1px solid rgba(34, 197, 94, 0.2);">
+                    ✓ VERIFIED PRO
+                 </div>
+                 {% elif labour.status == 'Suspicious' %}
+                 <div style="background: rgba(245, 158, 11, 0.1); color: #fbbf24; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; border: 1px solid rgba(245, 158, 11, 0.2);">
+                    ⚠️ SUSPICIOUS
+                 </div>
+                 {% endif %}
+
+                 <div style="margin-top: 1.5rem; text-align: left;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.4rem; color: #94a3b8;">
+                        <span>AI TRUST SCORE</span>
+                        <span style="font-weight: 700; color: white;">{{ labour.trust_score }}%</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+                        <div style="width: {{ labour.trust_score }}%; height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width 1s ease;"></div>
+                    </div>
+                 </div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 1.5rem 0;">
+            <div style="font-size: 0.95rem; line-height: 1.8;">
+                <p><strong>📞 Phone:</strong> {{ labour.phone }}</p>
+                <p><strong>📧 Email:</strong> {{ labour.email }}</p>
+                <p><strong>📍 Address:</strong> {{ labour.address or 'N/A' }}</p>
+            </div>
+
+            {% if session.get('user_role') == 'public' %}
+            <a href="{{ url_for('chat', labour_id=labour.labour_id) }}" class="btn btn-primary"
+                style="width: 100%; margin-top: 2rem; background: var(--accent-color); color: var(--primary-color); display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem;">
+                💬 <span>Message for Service</span>
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 1.5rem; color: var(--secondary-color);">Work Showcase</h3>
+            <div class="showcase-grid" style="grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));">
+                {% for item in showcase %}
+                <div class="showcase-item" style="height: 100px;">
+                    <img src="{{ url_for('uploaded_file', filename=item.image_path) }}" alt="{{ item.description }}">
+                    <div class="showcase-overlay" style="font-size: 0.6rem; padding: 0.3rem;">
+                        {{ item.description }}
+                    </div>
+                </div>
+                {% else %}
+                <p style="color: #64748b; font-size: 0.9rem;">No work samples uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem;">Previous Work Highlights</h3>
+            <div class="showcase-grid">
+                {% for item in showcase %}
+                <div class="showcase-item">
+                    <img src="{{ url_for('uploaded_file', filename=item.image_path) }}" alt="{{ item.description }}">
+                    <div class="showcase-overlay">
+                        {{ item.description }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 1.5rem;">Community Reviews</h3>
+        <div class="grid" style="grid-template-columns: 1fr;">
+            {% for fb in feedbacks %}
+            <div class="card review-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div style="display: flex; gap: 0.2rem;">
+                        {% for i in range(fb.rating) %}<span style="color: var(--secondary-color);">★</span>{% endfor %}
+                    </div>
+                    <span style="color: #94a3b8; font-size: 0.8rem;">{{ fb.feedback_date.strftime('%b %d, %Y') }}</span>
+                </div>
+                <p style="font-style: italic; margin-bottom: 1rem;">"{{ fb.comment }}"</p>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div
+                        style="width: 24px; height: 24px; background: #6366f1; border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">
+                        {{ fb.public.full_name[0] }}</div>
+                    <span style="color: #cbd5e1; font-size: 0.85rem;">{{ fb.public.full_name }}</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="card" style="text-align: center; color: #94a3b8; padding: 3rem;">
+                No reviews yet. Be the first to leave one!
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if session.get('user_role') == 'public' %}
+        <div class="card"
+            style="margin-top: 3rem; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+            <h3 style="color: var(--accent-color); margin-bottom: 1.5rem;">Share Your Experience</h3>
+            <form action="{{ url_for('submit_feedback') }}" method="POST">
+                <input type="hidden" name="labour_id" value="{{ labour.labour_id }}">
+                <div class="form-group">
+                    <label>Quality Rating</label>
+                    <select name="rating" class="form-control">
+                        <option value="5">⭐⭐⭐⭐⭐ - Exceptional</option>
+                        <option value="4">⭐⭐⭐⭐ - Great</option>
+                        <option value="3">⭐⭐⭐ - Good</option>
+                        <option value="2">⭐⭐ - Not Satisfied</option>
+                        <option value="1">⭐ - Very Poor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Details of Services Provided</label>
+                    <textarea name="comment" class="form-control" rows="4"
+                        placeholder="How did the professional help you today?" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; background: var(--accent-color); color: var(--primary-color);">Post My
+                    Review</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

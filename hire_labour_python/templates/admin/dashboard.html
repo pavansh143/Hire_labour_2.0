@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero" style="padding: 2rem;">
+    <h1>Admin Control Center</h1>
+    <p>Manage the Hire Labour ecosystem and monitor activity.</p>
+</div>
+
+<div class="grid">
+    <div class="card" style="text-align: center;">
+        <h2 style="font-size: 3rem; margin: 0; color: var(--secondary-color);">{{ labour_count }}</h2>
+        <p>Registered Labours</p>
+        <a href="{{ url_for('manage_labours') }}" class="btn btn-primary">Manage Labours</a>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h2 style="font-size: 3rem; margin: 0; color: var(--accent-color);">{{ public_count }}</h2>
+        <p>Public Users</p>
+        <a href="{{ url_for('manage_publics') }}" class="btn btn-primary">Manage Publics</a>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h2 style="font-size: 3rem; margin: 0; color: #d500f9;">{{ feedback_count }}</h2>
+        <p>Total Feedbacks</p>
+        <button class="btn btn-outline" style="color: white; border-color: white;">View Analytics</button>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+    <h3>Recent Activity Logs</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead style="border-bottom: 2px solid var(--glass-border);">
+            <tr>
+                <th style="padding: 1rem; text-align: left;">Action</th>
+                <th style="padding: 1rem; text-align: left;">Target</th>
+                <th style="padding: 1rem; text-align: left;">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 1rem;">System Check</td>
+                <td style="padding: 1rem;">Database Integrity</td>
+                <td style="padding: 1rem;">Just now</td>
+            </tr>
+            <tr>
+                <td style="padding: 1rem;">AI Sweep</td>
+                <td style="padding: 1rem;">Rating Analysis</td>
+                <td style="padding: 1rem;">2 mins ago</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

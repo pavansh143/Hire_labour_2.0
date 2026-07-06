@@ -1,0 +1,8 @@
+flask
+google-generativeai
+pillow
+opencv-python
+numpy
+requests
+pytesseract
+scikit-learn

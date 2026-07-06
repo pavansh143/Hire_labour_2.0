@@ -1,0 +1,263 @@
+/* ═══════════════════════════════════════════════════════════
+   REGISTRATION PAGE STYLES — Hire Labour AI
+   Extends / replaces index.css for the registration form
+═══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary:   #6366f1;
+    --secondary: #a855f7;
+    --accent:    #06b6d4;
+    --bg-dark:   #050816;
+    --card-bg:   rgba(255, 255, 255, 0.04);
+    --text-main: #f1f5f9;
+    --text-muted:#64748b;
+    --border:    rgba(255, 255, 255, 0.08);
+    --success:   #22c55e;
+    --warning:   #f59e0b;
+    --danger:    #ef4444;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-image:
+        radial-gradient(ellipse 60% 50% at 20% 10%, rgba(99,102,241,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 90%, rgba(168,85,247,0.12) 0%, transparent 60%);
+}
+
+/* Back to landing link */
+.back-link {
+    position: fixed; top: 20px; left: 24px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.85rem; font-weight: 500; color: var(--text-muted);
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 100px;
+    transition: all 0.2s; z-index: 100;
+}
+.back-link:hover { color: #fff; border-color: var(--primary); }
+
+.page-header { text-align: center; margin-bottom: 32px; }
+.page-logo {
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center;
+    font-size: 1.3rem; font-weight: 800; margin-bottom: 8px;
+}
+.logo-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+}
+.logo-accent { color: var(--primary); }
+.logo-ai {
+    background: linear-gradient(to right, var(--accent), var(--success));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* ─── Progress Steps Indicator ─────────────────────────── */
+.progress-steps {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 32px; width: 100%; max-width: 460px;
+}
+.prog-step {
+    display: flex; flex-direction: column; align-items: center;
+    flex: 1; position: relative;
+}
+.prog-step::after {
+    content: ''; position: absolute; top: 18px; left: 50%;
+    width: 100%; height: 2px;
+    background: var(--border); z-index: 0;
+    transition: background 0.4s;
+}
+.prog-step:last-child::after { display: none; }
+.prog-step.done::after { background: linear-gradient(to right, var(--primary), var(--secondary)); }
+
+.prog-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--card-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
+    position: relative; z-index: 1;
+    transition: all 0.4s;
+}
+.prog-step.active .prog-circle {
+    border-color: var(--primary);
+    background: rgba(99,102,241,0.15);
+    color: #a5b4fc;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+}
+.prog-step.done .prog-circle {
+    border-color: var(--success);
+    background: rgba(34,197,94,0.15);
+    color: var(--success);
+}
+.prog-label { font-size: 0.68rem; color: var(--text-muted); margin-top: 6px; text-align: center; }
+
+/* ─── Glass Card ─────────────────────────────────────────── */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.6);
+}
+
+h1 {
+    font-size: 2rem; font-weight: 800;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+}
+p.subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem; }
+
+/* ─── Form ───────────────────────────────────────────────── */
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.85rem; color: var(--text-muted); }
+
+input, select, textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+input:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+input[type="file"] { padding: 10px 16px; cursor: pointer; }
+input[type="file"]::file-selector-button {
+    background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+    color: #a5b4fc; border-radius: 8px; padding: 4px 12px;
+    font-size: 0.78rem; cursor: pointer; margin-right: 12px; transition: all 0.2s;
+}
+input[type="file"]::file-selector-button:hover { background: rgba(99,102,241,0.2); }
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn-primary {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white; border: none;
+    padding: 13px 28px; border-radius: 12px;
+    font-weight: 700; font-size: 0.95rem; cursor: pointer;
+    width: 100%; transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -6px rgba(99,102,241,0.5); }
+.btn-secondary {
+    background: rgba(255,255,255,0.05); color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 13px 28px; border-radius: 12px;
+    font-weight: 600; font-size: 0.95rem; cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--primary); color: #fff; }
+
+.btn-row { display: flex; gap: 12px; }
+
+/* ─── Badges ─────────────────────────────────────────────── */
+.badge {
+    padding: 4px 14px; border-radius: 20px;
+    font-size: 0.78rem; font-weight: 600; display: inline-block;
+}
+.badge-verified    { background: rgba(34,197,94,0.15);  color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+.badge-suspicious  { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.badge-fake        { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.badge-pending     { background: rgba(100,116,139,0.15);color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+
+/* ─── Trust Meter ────────────────────────────────────────── */
+.trust-meter { height: 8px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+.trust-fill  { height: 100%; transition: width 1.2s ease-out; border-radius: 4px; }
+
+/* ─── Multi-step ─────────────────────────────────────────── */
+.step { display: none; }
+.step.active { display: block; animation: fadeSlide 0.4s ease forwards; }
+@keyframes fadeSlide { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:translateX(0); } }
+
+/* ─── AI Result Panel ────────────────────────────────────── */
+.ai-result-panel {
+    display: none;
+    animation: fadeSlide 0.5s ease forwards;
+}
+.ai-loading {
+    text-align: center; padding: 40px 20px;
+}
+.ai-spinner {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    margin: 0 auto 20px;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ai-loading-text { font-weight: 600; margin-bottom: 6px; }
+.ai-loading-sub  { font-size: 0.82rem; color: var(--text-muted); }
+.ai-loading-steps {
+    margin-top: 20px; display: flex; flex-direction: column; gap: 8px; text-align: left;
+}
+.ai-ls { font-size: 0.8rem; color: var(--text-muted); padding: 6px 12px; border-radius: 8px; background: rgba(255,255,255,0.02); }
+.ai-ls.done   { color: var(--success); }
+.ai-ls.active { color: var(--warning); background: rgba(245,158,11,0.06); }
+
+.ai-result-content { display: none; }
+.result-verdict {
+    text-align: center; padding: 28px 20px;
+    border-radius: 16px; margin-bottom: 20px;
+    border: 2px solid transparent;
+}
+.result-verdict.allow {
+    background: radial-gradient(circle at 50% 0%, rgba(34,197,94,0.08), transparent 70%);
+    border-color: rgba(34,197,94,0.35);
+}
+.result-verdict.reject {
+    background: radial-gradient(circle at 50% 0%, rgba(239,68,68,0.08), transparent 70%);
+    border-color: rgba(239,68,68,0.35);
+}
+.verdict-emoji { font-size: 2.5rem; margin-bottom: 10px; }
+.verdict-action {
+    font-size: 1rem; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.verdict-action.allow  { color: #4ade80; }
+.verdict-action.reject { color: #f87171; }
+.verdict-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.result-box {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px;
+}
+.result-box-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.result-box-val   { font-size: 0.9rem; font-weight: 700; }
+.result-box-val.green { color: #4ade80; }
+.result-box-val.red   { color: #f87171; }
+.result-box-val.blue  { color: #67e8f9; }
+
+.result-notes {
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px; margin-bottom: 16px;
+}
+.result-notes-title { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+.result-notes-text  { font-size: 0.82rem; line-height: 1.6; color: #94a3b8; }
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.animate-fade { animation: fadeIn 0.6s ease-out forwards; }

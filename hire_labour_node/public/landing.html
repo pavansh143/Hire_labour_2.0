@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Labour AI — Trusted Workers, Verified by AI</title>
+    <meta name="description" content="India's first AI-powered labour marketplace. Find skilled, AI-verified workers for any job. Real humans, zero fraud.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">
+            <div class="logo-icon">⚡</div>
+            <span>Hire<span class="logo-accent">Labour</span> <span class="logo-ai">AI</span></span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="search.html" class="btn-outline" id="findWorkersBtn">Find Workers</a>
+            <a href="index.html" class="btn-primary-nav" id="getStartedBtn">Get Started →</a>
+        </div>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════ HERO ════════════════════════════ -->
+<section class="hero" id="hero">
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-container">
+        <div class="hero-left">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                AI-Powered Verification Engine Active
+            </div>
+            <h1 class="hero-title">
+                Find <span class="gradient-text">Skilled Workers</span><br>
+                Verified by <span class="gradient-text-2">Artificial Intelligence</span>
+            </h1>
+            <p class="hero-desc">
+                India's first marketplace where every labourer is authenticated by our 
+                Gemini Vision AI — detecting liveness, preventing fraud, and ensuring 
+                only real, skilled professionals reach you.
+            </p>
+            <div class="hero-actions">
+                <a href="index.html" class="btn-hero-primary" id="registerBtn">
+                    <span>Register as Worker</span>
+                    <div class="btn-shimmer"></div>
+                </a>
+                <a href="search.html" class="btn-hero-secondary" id="searchBtn">
+                    🔍 Browse Verified Workers
+                </a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <div>
+                        <div class="trust-val">100%</div>
+                        <div class="trust-label">AI Verified</div>
+                    </div>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <div class="trust-icon">⚡</div>
+                    <div>
+                        <div class="trust-val">&lt; 30s</div>
+                        <div class="trust-label">Verification</div>
+                    </div>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <div class="trust-icon">🚫</div>
+                    <div>
+                        <div class="trust-val">Zero</div>
+                        <div class="trust-label">Fake Profiles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <!-- Floating AI verification card -->
+            <div class="float-card card-main animate-float">
+                <div class="card-header">
+                    <div class="card-avatar">👷</div>
+                    <div class="card-info">
+                        <div class="card-name">Rajesh Kumar</div>
+                        <div class="card-skill">Master Electrician</div>
+                    </div>
+                    <div class="card-badge verified">✓ Verified</div>
+                </div>
+                <div class="card-trust-bar">
+                    <div class="trust-label-sm">AI Trust Score</div>
+                    <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+                    <div class="trust-num">92/100</div>
+                </div>
+                <div class="card-chips">
+                    <span class="chip">Wiring</span>
+                    <span class="chip">Solar</span>
+                    <span class="chip">8 yrs exp</span>
+                </div>
+            </div>
+
+            <!-- AI scan animation card -->
+            <div class="float-card card-ai animate-float-delay">
+                <div class="ai-scan-header">
+                    <div class="ai-pulse"></div>
+                    <span>AI Engine Running</span>
+                </div>
+                <div class="ai-steps">
+                    <div class="ai-step done">✅ Face Liveness Detected</div>
+                    <div class="ai-step done">✅ Anti-Spoofing Passed</div>
+                    <div class="ai-step done">✅ Profile Validated</div>
+                    <div class="ai-step active">⚡ Generating Trust Score...</div>
+                </div>
+                <div class="ai-json">
+                    <span class="json-key">"final_action"</span>: <span class="json-val">"ALLOW_REGISTRATION"</span>
+                </div>
+            </div>
+
+            <!-- Small floating badge -->
+            <div class="float-badge animate-float-slow">
+                <span class="badge-emoji">🤖</span>
+                <span>Gemini Vision AI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+        <span>Scroll to explore</span>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ HOW IT WORKS ═══════════════════════════ -->
+<section class="section" id="how-it-works">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-tag">Simple & Fast</div>
+            <h2>How It Works</h2>
+            <p>Three steps. Under a minute. Fully AI-powered.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card" data-step="1">
+                <div class="step-num">01</div>
+                <div class="step-icon">📝</div>
+                <h3>Register Your Profile</h3>
+                <p>Enter your name, skills, bio and years of experience. Our system reads every field for quality and authenticity.</p>
+                <div class="step-arrow">→</div>
+            </div>
+            <div class="step-card" data-step="2">
+                <div class="step-num">02</div>
+                <div class="step-icon">📸</div>
+                <h3>Upload Live Selfie</h3>
+                <p>Take a selfie with your ID card. Our Gemini Vision AI analyzes it for liveness — catching printed photos, screens & deepfakes.</p>
+                <div class="step-arrow">→</div>
+            </div>
+            <div class="step-card" data-step="3">
+                <div class="step-num">03</div>
+                <div class="step-icon">🤖</div>
+                <h3>AI Verifies Instantly</h3>
+                <p>Within 30 seconds, our engine returns a Trust Score and either approves or flags your registration. No waiting, no manual review needed.</p>
+                <div class="step-arrow final">✓</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ FEATURES ═══════════════════════════ -->
+<section class="section section-alt" id="features">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-tag">Why Choose Us</div>
+            <h2>Built Different</h2>
+            <p>No other labour platform has this level of security and intelligence.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" id="feat1">
+                <div class="feature-icon-wrap" style="--ic: #6366f1;">
+                    <span>👁️</span>
+                </div>
+                <h3>Liveness Detection</h3>
+                <p>Google Gemini Vision AI analyzes every selfie to determine if it's a real live human — not a photo, screen recording, or deepfake.</p>
+                <div class="feature-tag">Anti-Spoofing</div>
+            </div>
+            <div class="feature-card" id="feat2">
+                <div class="feature-icon-wrap" style="--ic: #a855f7;">
+                    <span>🧠</span>
+                </div>
+                <h3>Smart Profile Analysis</h3>
+                <p>Our NLP engine detects gibberish bios, copy-pasted descriptions, keyboard smashing, and inconsistent skill claims.</p>
+                <div class="feature-tag">Spam Detection</div>
+            </div>
+            <div class="feature-card" id="feat3">
+                <div class="feature-icon-wrap" style="--ic: #06b6d4;">
+                    <span>🔢</span>
+                </div>
+                <h3>Trust Score Engine</h3>
+                <p>Each worker gets a 0–100 trust score combining face verification confidence and profile data quality — visible to every employer.</p>
+                <div class="feature-tag">Transparency</div>
+            </div>
+            <div class="feature-card" id="feat4">
+                <div class="feature-icon-wrap" style="--ic: #22c55e;">
+                    <span>🛡️</span>
+                </div>
+                <h3>Duplicate Detection</h3>
+                <p>Face encodings are checked against the entire database to prevent one person from registering multiple fake profiles.</p>
+                <div class="feature-tag">Fraud Prevention</div>
+            </div>
+            <div class="feature-card" id="feat5">
+                <div class="feature-icon-wrap" style="--ic: #f59e0b;">
+                    <span>📱</span>
+                </div>
+                <h3>OTP Phone Auth</h3>
+                <p>Every registration starts with phone number verification via OTP — ensuring only real mobile numbers are used.</p>
+                <div class="feature-tag">Authentication</div>
+            </div>
+            <div class="feature-card" id="feat6">
+                <div class="feature-icon-wrap" style="--ic: #ef4444;">
+                    <span>⚡</span>
+                </div>
+                <h3>Real-Time Results</h3>
+                <p>See your verification result live on screen — face analysis, profile score, and final ALLOW or REJECT verdict — in under 30 seconds.</p>
+                <div class="feature-tag">Instant Feedback</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ STATS COUNTER ═══════════════════════════ -->
+<section class="section stats-section" id="stats">
+    <div class="section-container">
+        <div class="stats-grid">
+            <div class="stat-card" id="stat1">
+                <div class="stat-number" data-target="5000">0</div>
+                <div class="stat-plus">+</div>
+                <div class="stat-label">Workers Registered</div>
+            </div>
+            <div class="stat-card" id="stat2">
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-plus">%</div>
+                <div class="stat-label">Fraud Detection Rate</div>
+            </div>
+            <div class="stat-card" id="stat3">
+                <div class="stat-number" data-target="30">0</div>
+                <div class="stat-plus">s</div>
+                <div class="stat-label">Avg Verification Time</div>
+            </div>
+            <div class="stat-card" id="stat4">
+                <div class="stat-number" data-target="12">0</div>
+                <div class="stat-plus">+</div>
+                <div class="stat-label">Skill Categories</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SKILLS SHOWCASE ═══════════════════════════ -->
+<section class="section section-alt" id="skills">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-tag">Skill Categories</div>
+            <h2>Find Workers In Any Trade</h2>
+            <p>From electricians to painters — every worker is AI-verified before they reach you.</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-tile" id="sk1"><span class="sk-icon">⚡</span><span>Electrician</span></div>
+            <div class="skill-tile" id="sk2"><span class="sk-icon">🔧</span><span>Plumber</span></div>
+            <div class="skill-tile" id="sk3"><span class="sk-icon">🪚</span><span>Carpenter</span></div>
+            <div class="skill-tile" id="sk4"><span class="sk-icon">🏗️</span><span>Mason</span></div>
+            <div class="skill-tile" id="sk5"><span class="sk-icon">🎨</span><span>Painter</span></div>
+            <div class="skill-tile" id="sk6"><span class="sk-icon">🧹</span><span>Housekeeping</span></div>
+            <div class="skill-tile" id="sk7"><span class="sk-icon">🏠</span><span>AC Technician</span></div>
+            <div class="skill-tile" id="sk8"><span class="sk-icon">🌱</span><span>Gardener</span></div>
+            <div class="skill-tile" id="sk9"><span class="sk-icon">🚛</span><span>Driver</span></div>
+            <div class="skill-tile" id="sk10"><span class="sk-icon">👷</span><span>General Labour</span></div>
+            <div class="skill-tile" id="sk11"><span class="sk-icon">🔩</span><span>Welder</span></div>
+            <div class="skill-tile" id="sk12"><span class="sk-icon">📦</span><span>Packer</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ AI DEMO PANEL ═══════════════════════════ -->
+<section class="section ai-demo-section" id="ai-demo">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-tag">Live AI Preview</div>
+            <h2>See Our AI In Action</h2>
+            <p>This is exactly what happens when a worker registers on our platform.</p>
+        </div>
+        <div class="demo-container">
+            <div class="demo-left">
+                <div class="demo-card">
+                    <div class="demo-section-title">📸 Selfie Analysis</div>
+                    <div class="demo-row">
+                        <span class="demo-label">Face Detected</span>
+                        <span class="demo-chip green">✓ YES</span>
+                    </div>
+                    <div class="demo-row">
+                        <span class="demo-label">Liveness Check</span>
+                        <span class="demo-chip green">✓ PASSED</span>
+                    </div>
+                    <div class="demo-row">
+                        <span class="demo-label">Anti-Spoofing</span>
+                        <span class="demo-chip green">✓ No screen borders detected</span>
+                    </div>
+                    <div class="demo-row">
+                        <span class="demo-label">Confidence</span>
+                        <span class="demo-chip blue">0.89</span>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-section-title">📝 Profile Analysis</div>
+                    <div class="demo-row">
+                        <span class="demo-label">Profile Legitimate</span>
+                        <span class="demo-chip green">✓ YES</span>
+                    </div>
+                    <div class="demo-row">
+                        <span class="demo-label">Spam Detected</span>
+                        <span class="demo-chip red">✗ NO SPAM</span>
+                    </div>
+                    <div class="demo-row">
+                        <span class="demo-label">Data Quality</span>
+                        <span class="demo-chip blue">0.91</span>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-right">
+                <div class="demo-verdict allow">
+                    <div class="verdict-icon">✅</div>
+                    <div class="verdict-title">ALLOW_REGISTRATION</div>
+                    <div class="verdict-sub">Worker profile approved by Gemini AI</div>
+                    <div class="verdict-score">
+                        <div>Trust Score</div>
+                        <div class="verdict-score-num">90<span>/100</span></div>
+                    </div>
+                </div>
+                <div class="demo-json">
+                    <div class="json-header">
+                        <span class="json-dot red"></span>
+                        <span class="json-dot yellow"></span>
+                        <span class="json-dot green"></span>
+                        <span class="json-title">ai_response.json</span>
+                    </div>
+                    <pre class="json-body">{
+  <span class="jk">"authentication"</span>: {
+    <span class="jk">"face_verified"</span>: <span class="jv">true</span>,
+    <span class="jk">"liveness_detected"</span>: <span class="jv">true</span>,
+    <span class="jk">"confidence_score"</span>: <span class="jn">0.89</span>
+  },
+  <span class="jk">"validation"</span>: {
+    <span class="jk">"profile_legitimate"</span>: <span class="jv">true</span>,
+    <span class="jk">"spam_detected"</span>: <span class="jv">false</span>,
+    <span class="jk">"data_quality_score"</span>: <span class="jn">0.91</span>
+  },
+  <span class="jk">"final_action"</span>: <span class="js">"ALLOW_REGISTRATION"</span>
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ CTA ═══════════════════════════ -->
+<section class="cta-section" id="cta">
+    <div class="cta-glow"></div>
+    <div class="section-container">
+        <div class="cta-content">
+            <h2>Ready to Join India's Smartest Labour Platform?</h2>
+            <p>Whether you're a worker looking for jobs or an employer needing verified talent — we've got you.</p>
+            <div class="cta-actions">
+                <a href="index.html" class="btn-cta-primary" id="ctaRegisterBtn">
+                    Register as Worker
+                    <div class="btn-shimmer"></div>
+                </a>
+                <a href="search.html" class="btn-cta-secondary" id="ctaSearchBtn">
+                    Hire a Worker →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+    <div class="section-container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon">⚡</div>
+                <span>Hire<span class="logo-accent">Labour</span> <span class="logo-ai">AI</span></span>
+            </div>
+            <p class="footer-tagline">Powered by Google Gemini Vision AI</p>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 HireLabour AI. All rights reserved.</span>
+            <span>Built with ❤️ for India's workforce</span>
+        </div>
+    </div>
+</footer>
+
+<script src="js/landing.js"></script>
+</body>
+</html>

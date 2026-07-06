@@ -1,0 +1,11 @@
+flask
+flask-sqlalchemy
+flask-login
+opencv-python
+pytesseract
+face_recognition
+numpy
+sqlalchemy
+werkzeug
+python-dotenv
+google-generativeai

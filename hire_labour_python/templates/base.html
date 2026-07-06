@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Labour - {{ t['welcome'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="logo">HIRE LABOUR</div>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_authenticated %}
+            {% if session.get('user_role') == 'public' %}
+            <a href="{{ url_for('public_dashboard') }}">Dashboard</a>
+            {% elif session.get('user_role') == 'labour' %}
+            <a href="{{ url_for('labour_dashboard') }}">Dashboard</a>
+            {% elif session.get('user_role') == 'admin' %}
+            <a href="{{ url_for('admin_dashboard') }}">{{ t['admin_panel'] }}</a>
+            {% endif %}
+            <a href="{{ url_for('messages') }}">Messages</a>
+            <a href="{{ url_for('logout') }}">{{ t['logout'] }}</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">{{ t['login'] }}</a>
+            {% endif %}
+
+            <select class="lang-selector" onchange="location = this.value;">
+                <option value="{{ url_for('set_lang', lang='en') }}" {% if lang=='en' %}selected{% endif %}>English
+                </option>
+                <option value="{{ url_for('set_lang', lang='kn') }}" {% if lang=='kn' %}selected{% endif %}>ಕನ್ನಡ
+                </option>
+                <option value="{{ url_for('set_lang', lang='hi') }}" {% if lang=='hi' %}selected{% endif %}>हिन्दी
+                </option>
+                <option value="{{ url_for('set_lang', lang='ta') }}" {% if lang=='ta' %}selected{% endif %}>தமிழ்
+                </option>
+                <option value="{{ url_for('set_lang', lang='te') }}" {% if lang=='te' %}selected{% endif %}>తెలుగు
+                </option>
+                <option value="{{ url_for('set_lang', lang='ml') }}" {% if lang=='ml' %}selected{% endif %}>മലയാളം
+                </option>
+                <option value="{{ url_for('set_lang', lang='mr') }}" {% if lang=='mr' %}selected{% endif %}>मराठी
+                </option>
+            </select>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; color: #666;">
+        &copy; 2025 Hire Labour. {{ t['welcome'] }}
+    </footer>
+</body>
+
+</html>

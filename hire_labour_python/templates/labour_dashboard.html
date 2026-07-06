@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+    <!-- Profile Sidebar -->
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="card">
+            <div style="text-align: center; position: relative; display: inline-block; width: 100%;">
+                <div style="position: relative; display: inline-block;">
+                    {% if user.profile_image %}
+                    <img src="{{ url_for('uploaded_file', filename=user.profile_image) }}" class="profile-img"
+                        style="width: 120px; height: 120px; margin-bottom: 0.5rem; border-width: 4px;">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/labour_placeholder.png') }}" class="profile-img"
+                        style="width: 120px; height: 120px; margin-bottom: 0.5rem; border-width: 4px;">
+                    {% endif %}
+
+                    <form action="{{ url_for('upload_profile') }}" method="POST" enctype="multipart/form-data"
+                        style="position: absolute; bottom: 5px; right: 5px;">
+                        <label for="profile_upload"
+                            style="background: var(--secondary-color); color: var(--primary-color); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid var(--primary-color); transition: transform 0.2s;">
+                            📷
+                        </label>
+                        <input type="file" id="profile_upload" name="profile_image" accept="image/*"
+                            style="display: none;" onchange="this.form.submit()">
+                    </form>
+                </div>
+                <h2 style="margin: 0.5rem 0;">{{ user.full_name }}</h2>
+                <div class="ai-badge">ID Verified Professional</div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 1.5rem 0;">
+            <div style="font-size: 0.95rem; line-height: 1.8;">
+                <p><strong>🛠️ Service:</strong> {{ user.service_offered }}</p>
+                <p><strong>📧 Contact:</strong> {{ user.email }}</p>
+                <p><strong>📞 Phone:</strong> {{ user.phone }}</p>
+                <p><strong>🕒 Joined:</strong> {{ user.registration_date.strftime('%b %d, %Y') }}</p>
+            </div>
+        </div>
+
+        <div class="card" style="background: rgba(251, 191, 36, 0.05); border-color: rgba(251, 191, 36, 0.2);">
+            <h3 style="color: var(--secondary-color); margin-bottom: 1.2rem;">Add Work Image</h3>
+            <form action="{{ url_for('upload_work') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Upload Work Photo</label>
+                    <input type="file" name="work_image" class="form-control" accept="image/*" required
+                        style="padding: 0.5rem; background: rgba(0,0,0,0.2);">
+                </div>
+                <div class="form-group">
+                    <label>Quick Description</label>
+                    <input type="text" name="description" class="form-control"
+                        placeholder="e.g. Completed kitchen remodel" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px;">🚀 Upload to
+                    Portfolio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+        <section>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0;">Your Work Showcase</h3>
+                <small style="color: #94a3b8;">{{ showcase|length if showcase else 0 }} items active</small>
+            </div>
+            <div class="showcase-grid">
+                {% if showcase %}
+                {% for item in showcase %}
+                <div class="showcase-item">
+                    <img src="{{ url_for('uploaded_file', filename=item.image_path) }}" alt="{{ item.description }}">
+                    <div class="showcase-overlay">
+                        {{ item.description }}
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="card"
+                    style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: rgba(255,255,255,0.02);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📸</div>
+                    <p style="color: #94a3b8;">Showcase your talent! Upload photos of your past work to attract more
+                        clients.</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section>
+            <h3 style="margin-bottom: 1.5rem;">Client Reviews & Ratings</h3>
+            <div class="grid" style="grid-template-columns: 1fr;">
+                {% for fb in feedbacks %}
+                <div class="card review-card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div>
+                            <div style="display: flex; gap: 0.2rem; margin-bottom: 0.3rem;">
+                                {% for i in range(fb.rating) %}<span style="color: var(--secondary-color);">★</span>{%
+                                endfor %}
+                            </div>
+                            <small style="color: #64748b;">Review by: {{ fb.public.full_name }}</small>
+                        </div>
+                        <span style="color: #94a3b8; font-size: 0.8rem;">{{ fb.feedback_date.strftime('%Y-%m-%d')
+                            }}</span>
+                    </div>
+                    <p style="font-size: 1.05rem; line-height: 1.6;">"{{ fb.comment }}"</p>
+                </div>
+                {% else %}
+                <div class="card" style="text-align: center; color: #94a3b8; padding: 2rem;">
+                    No reviews yet. Excellent service will bring you ratings!
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
